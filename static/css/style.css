@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+.luxury-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.hero-image {
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.upload-zone {
+  border: 3px dashed #667eea;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-zone:hover {
+  border-color: #764ba2;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.upload-zone.dragover {
+  border-color: #764ba2;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Badge skor umum */
+.score-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 4px;
+}
+
+/* Badge untuk Metrik Non-Verbal (Eye Movement Ratio) */
+.score-badge-small {
+  display: inline-block;
+  background: #34495e; /* Warna gelap untuk metrik */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Skema Warna Rubrik (0-4) */
+.score-badge-4 {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); /* Hijau (Comprehensive) */
+}
+.score-badge-3 {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); /* Biru (Specific Experience) */
+}
+.score-badge-2 {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); /* Oranye (General Response) */
+}
+.score-badge-1,
+.score-badge-0 {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); /* Merah (Minimal/Unanswered) */
+}
+
+.result-item {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 12px 0;
+  border-left: 4px solid #667eea;
+}
+
+.flag-warning {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  color: #856404;
+}
+
+.flag-success {
+  background: #d4edda;
+  border: 1px solid #28a745;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  color: #155724;
+}
+
+.btn {
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

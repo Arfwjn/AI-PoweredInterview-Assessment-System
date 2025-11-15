@@ -1,0 +1,10 @@
+Flask
+numpy
+# ONNX Runtime for deployment
+onnxruntime
+optimum
+transformers
+# Library untuk memproses video (audio/video, CV)
+opencv-python
+librosa
+soundfile

@@ -10,6 +10,36 @@ body {
   min-height: 100vh;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  /*Sticky Navbar*/
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 15px 0;
+}
+
+.navbar > div {
+  max-width: 6xl;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.container {
+  margin: 0.5rem auto;
+}
+
 .view {
   display: none;
 }
@@ -27,15 +57,33 @@ body {
 
 .hero-image {
   width: 100%;
-  height: 400px;
+  height: 300px; /* Sedikit diperpendek agar konten tidak terlalu jauh */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 24px; /* Teks lebih besar */
+  font-weight: 700;
+}
+
+/* Gaya BARU untuk kotak metrik di Home View */
+.metric-card {
+  padding: 20px;
+  border-radius: 8px;
+  height: 120px; /* Menentukan tinggi yang seragam */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Menengahkan konten secara horizontal */
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.metric-card:hover {
+  transform: translateY(-5px); /* Efek hover untuk interaksi */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .upload-zone {
@@ -76,10 +124,18 @@ body {
   }
 }
 
-/* Badge skor umum */
+/* --- SUMMARY METRICS STYLES --- */
+.summary-metric {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Badge Skor Umum (Digunakan untuk Rubrik Detail) */
 .score-badge {
   display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 8px 16px;
   border-radius: 8px;
@@ -88,18 +144,29 @@ body {
   margin: 4px;
 }
 
-/* Badge untuk Metrik Non-Verbal (Eye Movement Ratio) */
-.score-badge-small {
+/* Badge Besar untuk Summary Metrics Grid (BARU) */
+.score-badge-large {
   display: inline-block;
-  background: #34495e; /* Warna gelap untuk metrik */
   color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 15px 20px;
+  border-radius: 10px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 2em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Skema Warna Rubrik (0-4) */
+/* Warna untuk Score Badge Besar */
+.score-badge-large.bg-gray-700 {
+  background: #34495e; /* Warna gelap untuk Eye Movement Ratio */
+}
+.score-badge-large.bg-red-600 {
+  background: #dc3545; /* Merah untuk Violations */
+}
+.score-badge-large.bg-indigo-500 {
+  background: #667eea; /* Biru/Ungu untuk Akurasi STT */
+}
+
+/* --- SKEMA WARNA RUBRIK (0-4) --- */
 .score-badge-4 {
   background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); /* Hijau (Comprehensive) */
 }
@@ -114,6 +181,7 @@ body {
   background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); /* Merah (Minimal/Unanswered) */
 }
 
+/* --- RESULT ITEM & ALERTS --- */
 .result-item {
   background: #f8f9fa;
   padding: 16px;
@@ -140,6 +208,7 @@ body {
   color: #155724;
 }
 
+/* --- BUTTONS & NAVIGATION --- */
 .btn {
   padding: 12px 32px;
   border-radius: 8px;

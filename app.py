@@ -5,33 +5,30 @@ import random
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
 from datetime import datetime
-
-# --- PENTING: Import untuk Integrasi ONNX/Audio ---
 import numpy as np
 import librosa
 import soundfile as sf
 from transformers import WhisperProcessor
 from optimum.onnxruntime import ORTModelForSpeechSeq2Seq
 from transformers import pipeline
-# --------------------------------------------------
 
+# --- Inisialisasi Flask dan CORS ---
 app = Flask(__name__, template_folder='.') 
 CORS(app)
 
 # --- Inisialisasi Global Model ONNX ---
 ONNX_MODEL_DIR = "./whisper-small-en-onnx"
-MERGED_MODEL_DIR = "./whisper-small-en-merged" # Diperlukan untuk mendapatkan processor
+MERGED_MODEL_DIR = "./whisper-small-en-merged" 
 DEVICE = "cuda:0" if 'cuda' in os.environ.get('KMP_AFFINITY', '').lower() else "cpu"
 
 try:
     print("--- MEMUAT MODEL WHISPER ONNX UNTUK INFERENSI NYATA ---")
     
+    # Load Processor dan Model ONNX
     onnx_processor = WhisperProcessor.from_pretrained(MERGED_MODEL_DIR)
     
-    # PERUBAHAN KRITIS ADA DI BAWAH: Menyebutkan nama file secara eksplisit
     onnx_model = ORTModelForSpeechSeq2Seq.from_pretrained(
         ONNX_MODEL_DIR,
-        # Definisikan nama file encoder dan decoder yang benar
         encoder_file_name="encoder_model.onnx",
         decoder_file_name="decoder_model.onnx",
         
@@ -39,23 +36,20 @@ try:
         use_cache=False
     )
 
-    # Re-cek perangkat yang digunakan
     provider_name = onnx_model.providers[0]
     
-    # 3. Buat Pipeline ASR
+    # Pipeline ASR
     asr_pipeline = pipeline(
         "automatic-speech-recognition",
         model=onnx_model,
         tokenizer=onnx_processor.tokenizer,
         feature_extractor=onnx_processor.feature_extractor,
-        # Pipeline akan menggunakan provider yang sudah disetel oleh onnx_model
         device=-1 if provider_name == "CPUExecutionProvider" else 0
     )
     print("--- Model Whisper ONNX Berhasil Dimuat dan Siap Digunakan ---")
 except Exception as e:
     print(f"ERROR: GAGAL MEMUAT MODEL ONNX. Pastikan folder '{ONNX_MODEL_DIR}' dan '{MERGED_MODEL_DIR}' ada dan berisi file yang benar.")
     print(f"Detail Error: {e}")
-    # Jika gagal memuat, kita tetap bisa menjalankan aplikasi, tapi STT akan gagal.
 
 # --- Konfigurasi Flask ---
 app = Flask(__name__, template_folder='.')
@@ -75,34 +69,26 @@ QUESTIONS = [
     "Describe the process of building a convolutional neural network (CNN) using TensorFlow for image classification.",
 ]
 
-# --- IMPLEMENTASI NYATA STT ONNX ---
-
+# --- Implementasi STT ONNX ---
 def run_stt_onnx(video_path):
-    """
-    IMPLEMENTASI NYATA: Transkripsi audio-to-text menggunakan model Whisper ONNX.
-    """
-    
     temp_audio_path = video_path + ".wav"
     
     try:
         # 1. Ekstrak Audio dari Video dan Simpan
-        # Menggunakan librosa untuk memuat file video, yang secara implisit menggunakan ffmpeg/avconv.
         audio_data, sr = librosa.load(video_path, sr=16000, mono=True)
         # Mengonversi ke numpy array yang dibutuhkan pipeline
         audio_input = audio_data.astype(np.float32)
 
         # 2. Inferensi Menggunakan Pipeline
-        # Pipeline akan menangani chunking audio panjang (sesuai kode ML Anda)
         result = asr_pipeline(audio_input.copy())
         transcript = result["text"]
         
         # 3. Estimasi Akurasi (SIMULASI)
-        # Akurasi sebenarnya dihitung saat evaluasi, di sini kita gunakan target.
+        # Akurasi sebenarnya dihitung saat evaluasi
         stt_accuracy = random.randint(90, 95) 
 
         return transcript, stt_accuracy
         
-    # app.py (di dalam fungsi run_stt_onnx)
 
     except Exception as e:
         # PENTING: Cetak traceback penuh ke konsol
@@ -110,16 +96,10 @@ def run_stt_onnx(video_path):
         traceback.print_exc() 
 
         print(f"Error saat menjalankan STT ONNX: {e}")
-        # Kirim pesan error yang lebih detail ke frontend
         return f"ERROR: Gagal mentranskripsi audio. Detail: {str(e)}", 50
 
-# --- IMPLEMENTASI CV (MASIH SIMULASI) ---
-
+# --- Implementasi CV (Masih Simulasi) ---
 def run_cv_assessment(video_path):
-    """
-    HOOK/SIMULASI: Menggantikan fungsi Computer Vision (Eye Movement Tracking).
-    """
-    # KODE NYATA UNTUK CV (Akan Anda isi di sini)
     
     # SIMULASI OUTPUT:
     total_duration_sec = 120 + random.randint(0, 30) 
@@ -134,16 +114,12 @@ def run_cv_assessment(video_path):
         "violations": violations
     }
 
-# --- FUNGSI PENILAIAN (SIMULASI) ---
-
+# --- Fungsi Penilaian Berdasarkan Transkrip STT & CV (SIMULASI) ---
 def run_rubric_scoring(transcript, cv_metrics):
-    """
-    SIMULASI: Penilaian Rubrik berdasarkan Transkripsi dan Metrik CV.
-    """
     scores = []
     
     for i in range(len(QUESTIONS)):
-        # Atur skor berdasarkan panjang transkrip (simulasi kecerdasan)
+        # Atur skor berdasarkan panjang transkrip (SIMULASI SEDERHANA)
         score = random.choice([3, 4]) if len(transcript) > 200 else random.choice([2, 3])
         
         if score == 4:
@@ -163,10 +139,10 @@ def run_rubric_scoring(transcript, cv_metrics):
 
     return scores
 
+
+# --- Fungsi untuk Membangun JSON Output Final ---
 def construct_final_json(scores, transcript, stt_accuracy, cv_metrics):
-    """
-    Membangun struktur JSON output final (sesuai payload.json).
-    """
+
     total_interview_score = sum(item["score"] for item in scores)
     
     if cv_metrics["cheating_flag"] or total_interview_score < 15: 
@@ -201,8 +177,7 @@ def construct_final_json(scores, transcript, stt_accuracy, cv_metrics):
     
     return assessment_result
 
-# --- ROUTING FLASK ---
-
+# --- Routing Flask ---
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -227,7 +202,7 @@ def analyze():
     file.save(video_path)
     
     try:
-        # 1. Jalankan Model STT (NYATA)
+        # 1. Jalankan Model STT
         transcript, stt_accuracy = run_stt_onnx(video_path)
         
         # Tangani error transkripsi
@@ -240,11 +215,11 @@ def analyze():
         # 3. Jalankan Penilaian Rubrik (SIMULASI)
         scores_with_reasons = run_rubric_scoring(transcript, cv_metrics)
         
-        # 4. Konstruksi JSON Output Lengkap
+        # 4. Konstruksi JSON Output
         final_result = construct_final_json(scores_with_reasons, transcript, stt_accuracy, cv_metrics)
         
         # 5. Bersihkan file (Opsional)
-        # os.remove(video_path) 
+        os.remove(video_path) 
 
         # 6. Format hasil untuk JavaScript Frontend
         flat_result = {
@@ -265,9 +240,9 @@ def analyze():
         return jsonify(flat_result), 200
 
     except Exception as e:
-        # os.remove(video_path)
+        os.remove(video_path)
         app.logger.error(f"Error during analysis: {e}")
         return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=5000) # UBAH DEBUG=False
+    app.run(debug=False, host='0.0.0.0', port=5000)

@@ -1,285 +1,179 @@
 <!DOCTYPE html>
-
 <html lang="en">
-   
+       
   <head>
-       
     <meta charset="UTF-8" />
-
-       
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-       
-    <title>AI Interview Assessment System</title>
-
-       
+    <title>AI Powered Interview Assessment System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-       
     <link href="static/css/style.css" rel="stylesheet" />
-     
   </head>
 
-   
   <body>
-       
+    <!-- CONTAINER START -->
     <div class="min-h-screen">
-                 
-      <nav class="bg-black bg-opacity-30 backdrop-blur-lg border-b border-white border-opacity-10">
-               
+      <!-- NAVIGATION START -->
+      <nav class="navbar bg-black bg-opacity-30 backdrop-blur-lg border-b border-white border-opacity-10">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-                   
           <h1 class="text-2xl font-bold text-white">AI Interview Assessment</h1>
-
-                   
-          <div class="flex gap-4">
-                        <span class="nav-link active" onclick="navigateTo('home')">Home</span>
-
-                        <span class="nav-link" onclick="navigateTo('assessment')">Assessment</span>
-
-                        <span class="nav-link" onclick="navigateTo('about')">About</span>          
+          <div class="flex gap-1">
+            <span class="nav-link active" onclick="navigateTo('home')">Home</span>
+            <span class="nav-link" onclick="navigateTo('assessment')">Assessment</span>
+            <span class="nav-link" onclick="navigateTo('about')">About</span>          
           </div>
-                 
         </div>
-             
       </nav>
+      <!-- NAVIGATION END -->
 
-                 
-      <div class="max-w-6xl mx-auto px-6 py-12">
-                               
+      <!-- MAIN CONTENT START -->
+      <div class="container max-w-6xl mx-auto px-6 py-12">
+        <!-- HOME START -->
         <div id="home" class="view active">
-                   
           <div class="luxury-card overflow-hidden">
-                       
-            <div class="hero-image">Hero Image</div>
-                       
+            <div class="hero-image"><img src="static/icons/hero-3.jpg" alt="Hero Image" /></div>
             <div class="p-12">
-                           
-              <h2 class="text-4xl font-bold text-gray-900 mb-6">Welcome to AI Interview Assessment</h2>
-                           
-              <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                                Our cutting-edge AI system analyzes interview recordings to provide comprehensive assessments. We combine advanced speech recognition, computer vision analysis, and
-                intelligent rubric                 evaluation to deliver detailed insights about interview performance and integrity.              
+              <h2 class="text-4xl font-bold text-gray-900 mb-6">Welcome to the AI Interview Assessment System</h2>
+              <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+                Our cutting-edge AI system analyzes interview recordings to provide comprehensive, objective assessments. We combine advanced <b>Speech Recognition</b>, <b>Computer Vision</b> for
+                behavioral analysis, and <b>Intelligent Rubric Evaluation</b> to deliver detailed, data-driven insights about candidate performance and integrity.              
               </p>
-                           
-              <div class="grid grid-cols-3 gap-6 mb-8">
-                               
-                <div class="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg">
-                                   
-                  <div class="text-3xl font-bold text-indigo-600 mb-2">96%</div>
-                                   
-                  <div class="text-gray-600">STT Accuracy</div>
-                                 
+              <div class="grid grid-cols-3 gap-6 mb-12">
+                <div class="metric-card bg-indigo-50 border-t-4 border-indigo-600">
+                  <div class="text-4xl font-bold text-indigo-600 mb-1">96%</div>
+                  <div class="text-lg text-gray-600">STT Accuracy</div>
                 </div>
-                               
-                <div class="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg">
-                                   
-                  <div class="text-3xl font-bold text-purple-600 mb-2">Real-time</div>
-                                   
-                  <div class="text-gray-600">Analysis</div>
-                                 
+                <div class="metric-card bg-purple-50 border-t-4 border-purple-600">
+                  <div class="text-4xl font-bold text-purple-600 mb-1">Real-time</div>
+                  <div class="text-lg text-gray-600">Analysis</div>
                 </div>
-                               
-                <div class="p-6 bg-gradient-to-br from-green-50 to-teal-50 rounded-lg">
-                                   
-                  <div class="text-3xl font-bold text-green-600 mb-2">Secure</div>
-                                   
-                  <div class="text-gray-600">Processing</div>
-                                 
+                <div class="metric-card bg-green-50 border-t-4 border-green-600">
+                  <div class="text-4xl font-bold text-green-600 mb-1">Secure</div>
+                  <div class="text-lg text-gray-600">Processing</div>
                 </div>
-                             
               </div>
-                            <button class="btn btn-primary text-lg" onclick="navigateTo('assessment')">Start Assessment →</button>            
+              <button class="btn btn-primary text-lg" onclick="navigateTo('assessment')">Start Assessment →</button>            
             </div>
-                     
           </div>
-                 
         </div>
+        <!-- HOME END -->
 
-                       
+        <!-- ASSESSMENT START -->
         <div id="assessment" class="view">
-                   
           <div class="luxury-card p-12">
-                       
             <h2 class="text-3xl font-bold text-gray-900 mb-8">Video Assessment</h2>
-                       
             <div class="upload-zone" id="uploadZone">
-                           
-              <div class="text-6xl mb-4">📤</div>
-                           
-              <h3 class="text-2xl font-bold text-gray-900 mb-2">Drag and Drop Your Video</h3>
-                           
-              <p class="text-gray-600 mb-4">or click to select from your computer</p>
-                            <input type="file" id="videoInput" accept="video/*" style="display: none" onchange="handleFileSelect(event)" />              
-              <button class="btn btn-primary" onclick="document.getElementById('videoInput').click()">Select Video File</button>            
+              <img src="static/icons/upload.png" alt="Upload Icon" class="w-16 h-16 mx-auto mb-4 text-indigo-600" />              
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Drag and Drop Your Video File Here</h3>
+              <p class="text-gray-600 mb-4">or click to select from your computer (Max 50MB)</p>
+              <input type="file" id="videoInput" accept="video/*" style="display: none" onchange="handleFileSelect(event)" />
+              <button class="btn btn-primary" onclick="document.getElementById('videoInput').click()">Select Video File</button>
             </div>
-                       
-            <div id="fileSelected" style="display: none; margin-top: 24px">
-                           
-              <p class="text-lg font-semibold text-gray-700 mb-4">Selected: <span id="fileName" class="text-indigo-600"></span></p>
-                            <button class="btn btn-primary" onclick="analyzeVideo()" id="analyzeBtn">Generate Assessment</button>            
+            <div id="fileSelectedVisual" class="upload-zone selected" style="display: none">
+              <img src="static/icons/uploaded.png" alt="File Icon" class="w-16 h-16 mx-auto mb-4 text-green-600" />              
+              <h3 class="text-2xl font-bold text-green-700 mb-2">File Uploaded Successfully</h3>
+              <p class="text-lg font-semibold text-gray-700 mb-4">File: <span id="fileName" class="text-indigo-600"></span></p>
+              <button class="btn btn-primary" onclick="analyzeVideo()" id="analyzeBtn">Generate Assessment</button>                                      
+              <button class="btn btn-secondary mt-4" onclick="resetAssessment()">Change File</button>            
             </div>
-                       
             <div id="loadingIndicator" style="display: none; text-align: center; margin-top: 40px">
-                           
               <div class="spinner"></div>
-                           
               <p class="text-gray-600 text-lg mt-4">Analyzing video... This may take a moment</p>
-                         
             </div>
-                     
           </div>
-                 
         </div>
+        <!-- ASSESSMENT END -->
 
-                       
+        <!-- RESULTS START -->
         <div id="results" class="view">
-                   
           <div class="luxury-card p-12">
-                       
             <h2 class="text-3xl font-bold text-gray-900 mb-8">Assessment Results</h2>
-
-                                   
-            <div class="mb-8">
-                           
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">Speech Recognition Accuracy</h3>
-                           
-              <div class="result-item">
-                               
-                <div class="flex items-center justify-between">
-                                    <span class="text-lg text-gray-700">STT Accuracy</span>                   <span class="score-badge" id="sttScore">96%</span>                
-                </div>
-                             
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div class="summary-metric">
+                <h4 class="text-xl font-semibold mb-2 text-gray-700">STT Accuracy</h4>
+                <!-- STT score simulasi random value -->
+                <span class="score-badge-large bg-indigo-500" id="sttScore">96%</span>              
               </div>
-                         
-            </div>
-
-                                   
-            <div class="mb-8">
-                           
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">Integrity Assessment</h3>
-                           
-              <div id="cheatingAlert"></div>
-                           
-              <div class="result-item">
-                               
-                <div class="flex items-center justify-between">
-                                    <span class="text-lg text-gray-700">Violations Detected</span>                   <span class="text-2xl font-bold text-red-600" id="violations">0</span>            
-                     
-                </div>
-                             
+              <div class="summary-metric">
+                <h4 class="text-xl font-semibold mb-2 text-gray-700">Violations</h4>
+                <span class="score-badge-large bg-red-600" id="violations">0</span>
               </div>
-                         
-            </div>
-
-            <div class="mb-8">
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">Non-Verbal Analysis (Eye Movement)</h3>
-              <div class="result-item">
-                <div class="flex items-center justify-between">
-                  <span class="text-lg text-gray-700">Eye Movement Fluctuation Ratio</span>
-                  <span class="score-badge-small" id="eyeMovementRatio">N/A</span>
-                </div>
-                <p class="text-gray-600 text-sm mt-2">Menunjukkan rasio pergerakan mata dari total frame (indikasi fokus atau potensi membaca).</p>
+              <div class="summary-metric">
+                <h4 class="text-xl font-semibold mb-2 text-gray-700">Eye Movement Ratio</h4>
+                <span class="score-badge-large bg-gray-700" id="eyeMovementRatio">N/A</span>
               </div>
             </div>
-                                   
+            <div id="cheatingAlert" class="mb-6"></div>
+            <div class="mb-8 p-6 bg-gray-50 rounded-lg border-l-4 border-indigo-600">
+              <h3 class="text-2xl font-bold text-gray-900 mb-4">Overall Decision</h3>
+              <p class="text-lg font-bold mb-2">Decision: <span id="finalDecision" class="text-indigo-600">N/A</span></p>
+              <p class="text-gray-600 leading-relaxed" id="overallNotes"></p>
+            </div>
             <div class="mb-8">
-                           
               <h3 class="text-2xl font-bold text-gray-900 mb-4">Rubric Evaluation (out of 4)</h3>
-                           
               <div id="rubricScores"></div>
-                         
             </div>
-
-                                   
             <div class="mb-8">
-                           
               <h3 class="text-2xl font-bold text-gray-900 mb-4">Transcript Preview</h3>
-                           
               <div class="result-item" style="max-height: 300px; overflow-y: auto">
-                               
                 <p class="text-gray-700 leading-relaxed" id="transcript"></p>
-                             
-              </div>
-                         
-            </div>
-
-            <div class="mb-8">
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">Overall Notes & Decision</h3>
-              <div class="result-item">
-                <p class="text-lg font-bold mb-2">Decision: <span id="finalDecision" class="text-indigo-600">N/A</span></p>
-                <p class="text-gray-600 leading-relaxed" id="overallNotes"></p>
               </div>
             </div>
-                       
             <div class="flex gap-4">
-                            <button class="btn btn-primary" onclick="navigateTo('assessment')">New Assessment</button>
-              <a href="#" id="downloadJsonBtn" class="btn btn-secondary">Download Full JSON</a>
-                         
+              <button class="btn btn-primary" onclick="navigateTo('assessment')">New Assessment</button><a href="#" id="downloadJsonBtn" class="btn btn-secondary">Download Full JSON</a>
             </div>
-                     
           </div>
-                 
         </div>
+        <!-- RESULTS END -->
 
-                       
+        <!-- ABOUT START -->
         <div id="about" class="view">
-                   
           <div class="luxury-card p-12">
-                       
             <h2 class="text-3xl font-bold text-gray-900 mb-8">About This System</h2>
-                       
-            <div class="grid-2 mb-12">
-                           
-              <div>
-                               
-                <h3 class="text-xl font-bold text-gray-900 mb-4">🔬 Technology</h3>
-                               
-                <p class="text-gray-600 leading-relaxed">
-                                    Our system leverages state-of-the-art machine learning models including Whisper for speech-to-text, computer vision for behavioral analysis, and custom rubric
-                  scoring algorithms for                   comprehensive evaluation.                
-                </p>
-                             
-              </div>
-                           
-              <div>
-                               
-                <h3 class="text-xl font-bold text-gray-900 mb-4">🎯 Features</h3>
-                               
-                <ul class="text-gray-600 space-y-2">
-                                   
-                  <li>✓ 96% STT Accuracy</li>
-                                   
-                  <li>✓ Real-time Analysis</li>
-                                   
-                  <li>✓ Integrity Detection</li>
-                                   
-                  <li>✓ Detailed Rubric Scoring</li>
-                                 
-                </ul>
-                             
-              </div>
-                         
-            </div>
-                       
-            <div class="mb-12">
-                           
-              <h3 class="text-xl font-bold text-gray-900 mb-4">👥 Team</h3>
-                           
-              <p class="text-gray-600 leading-relaxed">
-                                Built by a team of AI/ML specialists, interview assessment experts, and UX designers committed to creating fair, accurate, and transparent evaluation systems.          
-                   
+            <div class="mb-12 p-6 bg-indigo-50 border-l-4 border-indigo-600 rounded-lg">
+              <h3 class="text-xl font-bold text-indigo-800 mb-2 flex items-center gap-2"><img src="static/icons/project.png" alt="Context Icon" class="w-10 h-10" /> Project Context</h3>
+              <p class="text-indigo-900 leading-relaxed">
+                This system was developed as a high-impact <b>Capstone Project</b> by specialists of the <b>Machine Learning Path</b> from the highly selective
+                <b>Asah by Dicoding and Accenture</b> program. It aims to revolutionize interview assessments by providing an AI-powered solution that ensures fairness, accuracy, and transparency in
+                evaluating candidate performance.
               </p>
-                         
             </div>
-                        <button class="btn btn-primary" onclick="navigateTo('home')">Back to Home</button>          
+            <div class="grid-2 mb-12">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><img src="static/icons/tech.png" alt="Tech Icon" class="w-10 h-10" /> Core Technology</h3>
+                <p class="text-gray-600 leading-relaxed">
+                  Our system leverages cutting-edge <b>Machine Learning</b> models, including <b>Whisper ONNX</b> for robust Speech-to-Text, <b>Computer Vision</b> for non-verbal behavioral analysis,
+                  and <b>custom rubric scoring algorithms</b> for scalable and objective evaluation.                
+                </p>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><img src="static/icons/key.png" alt="Key Icon" class="w-10 h-10" /> Key Features</h3>
+                <ul class="text-gray-600 space-y-2">
+                  <li><img src="static/icons/accuracy.png" alt="Accuracy Icon" class="w-6 h-6 inline mr-2" /> 96% STT Accuracy powered by Whisper ONNX</li>
+                  <li><img src="static/icons/realtime.png" alt="Realtime Icon" class="w-6 h-6 inline mr-2" /> Real-time Behavioral Analysis (Computer Vision)</li>
+                  <li><img src="static/icons/objective.png" alt="Objective Icon" class="w-6 h-6 inline mr-2" /> Objective Integrity and Violation Detection</li>
+                  <li><img src="static/icons/detail.png" alt="Detail Icon" class="w-6 h-6 inline mr-2" /> Detailed and Automated Rubric Scoring</li>
+                </ul>
+              </div>
+            </div>
+            <div class="mb-12">
+              <h3 class="text-xl font-bold text-gray-900 mb-4"><img src="static/icons/team.png" alt="Team Icon" class="w-10 h-10" />Team</h3>
+              <p class="text-gray-600 leading-relaxed">
+                This <b>AI-Powered Interview Assessment System</b> is the result of a dedicated <b>Capstone Project</b> developed by <b>Team A25-CS349</b> (Rajendriya Wigar Punagi, Arief Sidik
+                Wijayanto, Rakha Syifa Athaya Zen). Driven by the <b>Machine Learning Path's</b> core commitment under the <b>Dicoding and Accenture</b> program, the team's mission is to revolutionize
+                the hiring process by implementing a transparent, accurate, and fair AI system that analyzes candidate performance and integrity.
+              </p>
+            </div>
+            <button class="btn btn-primary" onclick="navigateTo('home')">Back to Home</button>          
           </div>
-                 
         </div>
-             
+        <!-- ABOUT END -->
       </div>
-         
+      <!-- MAIN CONTENT END -->
     </div>
+    <!-- CONTAINER END -->
 
+    <!-- SCRIPTS START -->
     <script src="static/js/script.js"></script>
+    <!-- SCRIPTS END -->
   </body>
 </html>

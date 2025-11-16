@@ -35,7 +35,7 @@ interview_assessment_app/
 ├── whisper-small-en-onnx/ # MODEL ONNX (encoder_model.onnx, decoder_model.onnx, ...)
 └── whisper-small-en-merged/ # PROCESSOR (tokenizer.json, config.json, dll.)
 
-Link untuk model bisa di download di:
+Link untuk model dan ffmpeg bisa di download di:
 https://drive.google.com/drive/folders/1goof4ua1n7VfZsfLzcbgUkTDdV1tb8Ff?usp=drive_link
 
 🚀 Instalasi dan Menjalankan Proyek

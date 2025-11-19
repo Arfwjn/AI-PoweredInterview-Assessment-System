@@ -1,25 +1,27 @@
-🤖 AI-Powered Interview Assessment System (Capstone Project A25-CS349)
-Sistem ini dikembangkan sebagai Capstone Project program Asah led by Dicoding & Accenture. Proyek ini bertujuan untuk mengotomatisasi evaluasi video wawancara dengan menggabungkan teknologi Speech-to-Text (STT) dan Computer Vision (CV) untuk meningkatkan skalabilitas dan objektivitas penilaian.
+# 🤖 AI-Powered Interview Assessment System (Capstone Project A25-CS349)
 
-✨ Fitur Utama
-Speech-to-Text (STT) Nyata: Menggunakan model Whisper ONNX yang telah di-fine-tune untuk transkripsi audio dari video wawancara.
+Sistem ini dikembangkan sebagai Capstone Project (Tim A25-CS349) untuk mengotomatisasi penilaian video wawancara, menggabungkan teknologi **Speech-to-Text (STT)**, **Large Language Models (LLM)** untuk penilaian objektif, dan analisis **Computer Vision (CV)**.
 
-Analisis Non-Verbal (SIMULASI SEMENTARA): Implementasi hook untuk integrasi model Computer Vision (Eye Movement Tracking) untuk penilaian integritas kandidat.
+## ✨ Fitur Utama
 
-Penilaian Otomatis: Menghasilkan skor rubrik (0-4) dan Overall Notes sesuai dengan struktur payload Capstone.
+- **Objective Rubric Scoring:** Menggunakan **Gemini LLM Hook** (via API) untuk memberikan skor rubrik (0-4) dan alasan (_reason_) yang sangat objektif berdasarkan kualitas transkripsi dan rubrik resmi.
+- **STT Nyata & Optimasi:** Menggunakan model **Whisper ONNX** yang dioptimalkan untuk transkripsi audio yang cepat.
+- **Akumulasi Sesi:** Mendukung _upload_ video per pertanyaan (Q1-Q5) dalam satu sesi, mengumpulkan semua skor sebelum membuat _payload_ JSON akhir.
+- **Integrity Check (Simulated Hook):** Implementasi _hook_ untuk analisis non-verbal (Eye Movement) dari Computer Vision.
 
-Antarmuka Dashboard: Antarmuka web Flask dengan fitur drag-and-drop untuk upload video dan menampilkan hasil penilaian secara dashboard-style.
+---
 
-🛠️ Persyaratan Sistem
-Pastikan Anda memiliki tool dan perangkat lunak berikut terinstal di sistem Anda:
+## 🛠️ Persyaratan Instalasi
 
-A. Persyaratan Sistem Operasi
-Python 3.11.9
+### 1. Persyaratan Sistem Operasi & Tools
 
-FFMPEG: Diperlukan oleh librosa untuk mengekstrak audio dari file video. Pastikan FFMPEG terinstal dan jalur (ffmpeg.exe) telah ditambahkan ke Variabel Lingkungan (System PATH) Windows Anda.
+- **Python 3.11+**
+- **FFMPEG:** Diperlukan oleh `librosa` untuk mengekstrak audio dari file video. **Wajib diinstal dan ditambahkan ke System PATH (CMD: Edit System Environment Variables)** Windows/OS Anda.
+- **LLM API Key:** **GEMINI_API_KEY** (Wajib disiapkan sebagai variabel lingkungan untuk menjalankan Penilaian Objektif LLM).
 
-B. Struktur Folder Proyek
-Pastikan folder proyek Anda memiliki struktur dan file model yang benar:
+### 2. Struktur Folder & Model
+
+Pastikan proyek Anda memiliki struktur berikut:
 
 interview_assessment_app/
 ├── app.py # Aplikasi Flask
@@ -27,85 +29,140 @@ interview_assessment_app/
 ├── index.html # Frontend UI
 ├── static/ # Assets (CSS, JS)
 │ ├── css/
-│ │ └── style.css
+│ │ └── style.css # CSS
 │ ├── js/
-│ │ └── script.js
+│ │ └── script.js # JS
 │ ├── icons
+│ │ └── (gambar/icon) # Icon
 ├── uploads/ # Folder untuk video yang diunggah
 ├── whisper-small-en-onnx/ # MODEL ONNX (encoder_model.onnx, decoder_model.onnx, ...)
 └── whisper-small-en-merged/ # PROCESSOR (tokenizer.json, config.json, dll.)
+└── computer_vision_model/ # MODEL CV (Masih simulasi, gunakan model CV Anda sendiri)
 
-Link untuk model dan ffmpeg bisa di download di:
-https://drive.google.com/drive/folders/1goof4ua1n7VfZsfLzcbgUkTDdV1tb8Ff?usp=drive_link
+**Folder Tambahan:**
+Anda bisa menambahkan folder:
 
-🚀 Instalasi dan Menjalankan Proyek
-Ikuti langkah-langkah ini secara berurutan untuk menyiapkan dan menjalankan aplikasi Flask.
+1. uploads (tanpa isi)
+2. whisper-small-en-merged
+3. whisper-small-en-onnx
+4. computer_vision_model (opsional, sekarang masih simulasi penilaian)
 
-Langkah 1: Siapkan Lingkungan Python
-Buka terminal di folder utama proyek dan buat serta aktifkan lingkungan virtual:
+**Link Download Model & FFMPEG:**
+Anda dapat mengunduh model ONNX dan FFMPEG di:
+`https://drive.google.com/drive/folders/1goof4ua1n7VfZsfLzcbgUkTDdV1tb8Ff?usp=drive_link`
 
-Bash:
+---
 
-# Membuat venv (Windows)
+## 🚀 Panduan Menjalankan Proyek
 
-python -m venv venv
+### Langkah 1: Siapkan Lingkungan Python
 
-# Mengaktifkan venv (PowerShell)
+Buka terminal di folder utama proyek dan buat serta aktifkan _virtual environment_:
 
-.\venv\Scripts\Activate.ps1
+===================================================
 
-# Mengaktifkan venv (Linux/macOS)
+bash:
 
-source venv/bin/activate
+# Membuat venv (Sesuaikan nama environment Anda)
 
-Langkah 2: Instal Dependensi
-Instal semua library Python yang dibutuhkan.
+python -m venv venv_llm
 
-Bash:
+# Mengaktifkan venv (Windows PowerShell)
+
+.\venv_llm\Scripts\Activate.ps1
+
+===================================================
+
+### Langkah 2: Install Dependencies
+
+===================================================
+
+bash:
 
 pip install -r requirements.txt
 
-# Jika Anda menggunakan Flask-CORS, pastikan juga terinstal.
+===================================================
 
-Langkah 3: Jalankan Aplikasi Flask
-Jalankan skrip utama app.py. Catatan: Kami menggunakan debug=False untuk menghindari MemoryError saat memuat model ONNX.
+### Langkah 3: Atur API LLM (Gemini 2.5 Flash)
 
-Bash:
+===================================================
+
+bash:
+
+# Ganti dengan kunci Gemini rahasia Anda
+
+set GEMINI_API_KEY="ISI_KUNCI_API_ANDA_DI_SINI"
+
+===================================================
+
+### Langkah 4: Jalankan Aplikasi Utama
+
+===================================================
+
+bash:
 
 python app.py
-Setelah server dimulai, Anda akan melihat output yang menunjukkan pemuatan model dan alamat yang digunakan:
 
---- MEMUAT MODEL WHISPER ONNX UNTUK INFERENSI NYATA ---
-...
---- Model Whisper ONNX Berhasil Dimuat dan Siap Digunakan ---
+===================================================
 
-- Running on http://127.0.0.1:5000
+Jika berhasil, Anda akan melihat pesan "Klien Gemini berhasil diinisialisasi" dan alamat lokal (http://127.0.0.1:5000)
 
-Langkah 4: Akses Antarmuka Web
-Buka browser Anda dan navigasikan ke alamat lokal:
-http://127.0.0.1:5000/
+---
 
-Anda sekarang dapat mengunggah file video (MP4, WEBM, dll.) di halaman Assessment dan memulai proses penilaian.
+## 🛑 Troubleshooting:
 
-💻 Integrasi Model (Lanjutan)
-Integrasi Model Computer Vision (CV)
-Saat ini, fungsi analisis non-verbal menggunakan simulasi. Untuk mengintegrasikan model CV Anda (Eye Movement Tracking), Anda harus memodifikasi fungsi di app.py:
+### 1
 
-Python:
+**Masalah:**
 
-# app.py
+- LLM API failed: 503 UNAVAILABLE
 
-def run_cv_assessment(video_path):
-"""
-HOOK/SIMULASI: Ganti dengan logika deteksi wajah dan mata CV Anda.
-Gunakan library seperti OpenCV (cv2) untuk memproses frame video.
-"""
+**Kemungkinan Penyebab:**
 
-# ... (Tambahkan kode pemrosesan frame dan metrik CV di sini) ...
+- API Gemini kelebihan beban atau kuota habis.
 
-    return {
-        "total_duration_sec": 150,
-        "eye_movement_ratio": 0.25,
-        "cheating_flag": False,
-        "violations": 0
-    }
+**Solusi:**
+
+- Tunggu 5-10 menit dan coba ulang, atau periksa status/kuota API Anda.
+
+### 2
+
+**Masalah:**
+
+- PERINGATAN: GEMINI_API_KEY tidak ditemukan
+
+**Kemungkinan Penyebab:**
+
+- Variabel lingkungan belum disetel.
+
+**Solusi:**
+
+- Ulangi Langkah 3. Pastikan Anda menggunakan set GEMINI_API_KEY=... di terminal yang aktif sebelum python app.py.
+
+### 3
+
+**Masalah:**
+
+- audioread.NoBackendError
+
+**Kemungkinan Penyebab:**
+
+- FFMPEG tidak ditemukan di PATH sistem.
+
+**Solusi:**
+
+- Verifikasi bahwa Anda telah menambahkan jalur folder bin FFMPEG ke System PATH Windows Anda.
+
+### 4
+
+**Masalah:**
+
+- "Import ""optimum..."" could not be resolved"
+
+**Kemungkinan Penyebab:**
+
+- Konflik namespace atau caching VS Code.
+
+**Solusi:**
+
+- Ulangi Langkah 1 dengan membuat venv baru.

@@ -59,7 +59,7 @@ Anda dapat mengunduh model ONNX dan FFMPEG di:
 
 Buka terminal di folder utama proyek dan buat serta aktifkan _virtual environment_:
 
-Membuat venv (Sesuaikan nama environment Anda)
+- Membuat Environtment:
 ===================================================
 bash:
 
@@ -67,7 +67,7 @@ python -m venv venv_llm
 
 ===================================================
 
-Mengaktifkan venv (Windows PowerShell)
+- Mengaktifkan Environment:
 ===================================================
 bash:
 
@@ -78,6 +78,7 @@ bash:
 
 ### Langkah 2: Install Dependencies
 
+- Install Requirement:
 ===================================================
 bash:
 
@@ -88,7 +89,7 @@ pip install -r requirements.txt
 
 ### Langkah 3: Atur API LLM (Gemini 2.5 Flash)
 
-Ganti dengan kunci Gemini rahasia Anda
+- Atur API Key untuk Gemini:
 ===================================================
 bash:
 
@@ -98,6 +99,8 @@ set GEMINI_API_KEY="ISI_KUNCI_API_ANDA_DI_SINI"
 
 
 ### Langkah 4: Jalankan Aplikasi Utama
+
+- Run App:
 ===================================================
 bash:
 

@@ -62,6 +62,7 @@ Buka terminal di folder utama proyek dan buat serta aktifkan _virtual environmen
 - Membuat Environtment:
 
 ===================================================
+
 bash:
 
 python -m venv venv_llm
@@ -71,6 +72,7 @@ python -m venv venv_llm
 - Mengaktifkan Environment:
 
 ===================================================
+
 bash:
 
 .\venv_llm\Scripts\Activate.ps1
@@ -83,6 +85,7 @@ bash:
 - Install Requirement:
 
 ===================================================
+
 bash:
 
 pip install -r requirements.txt
@@ -95,6 +98,7 @@ pip install -r requirements.txt
 - Atur API Key untuk Gemini:
 
 ===================================================
+
 bash:
 
 set GEMINI_API_KEY="ISI_KUNCI_API_ANDA_DI_SINI"
@@ -107,6 +111,7 @@ set GEMINI_API_KEY="ISI_KUNCI_API_ANDA_DI_SINI"
 - Run App:
 
 ===================================================
+
 bash:
 
 python app.py

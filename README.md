@@ -59,21 +59,30 @@ Anda dapat mengunduh model ONNX dan FFMPEG di:
 
 Buka terminal di folder utama proyek dan buat serta aktifkan _virtual environment_:
 
+- Membuat Environtment:
+
 ===================================================
 
 bash:
 
-# Membuat venv (Sesuaikan nama environment Anda)
-
 python -m venv venv_llm
 
-# Mengaktifkan venv (Windows PowerShell)
+===================================================
+
+- Mengaktifkan Environment:
+
+===================================================
+
+bash:
 
 .\venv_llm\Scripts\Activate.ps1
 
 ===================================================
 
+
 ### Langkah 2: Install Dependencies
+
+- Install Requirement:
 
 ===================================================
 
@@ -83,19 +92,23 @@ pip install -r requirements.txt
 
 ===================================================
 
+
 ### Langkah 3: Atur API LLM (Gemini 2.5 Flash)
+
+- Atur API Key untuk Gemini:
 
 ===================================================
 
 bash:
 
-# Ganti dengan kunci Gemini rahasia Anda
-
 set GEMINI_API_KEY="ISI_KUNCI_API_ANDA_DI_SINI"
 
 ===================================================
 
+
 ### Langkah 4: Jalankan Aplikasi Utama
+
+- Run App:
 
 ===================================================
 
@@ -114,55 +127,43 @@ Jika berhasil, Anda akan melihat pesan "Klien Gemini berhasil diinisialisasi" da
 ### 1
 
 **Masalah:**
-
 - LLM API failed: 503 UNAVAILABLE
-
+  
 **Kemungkinan Penyebab:**
-
 - API Gemini kelebihan beban atau kuota habis.
-
+  
 **Solusi:**
-
 - Tunggu 5-10 menit dan coba ulang, atau periksa status/kuota API Anda.
 
 ### 2
 
 **Masalah:**
-
 - PERINGATAN: GEMINI_API_KEY tidak ditemukan
 
 **Kemungkinan Penyebab:**
-
 - Variabel lingkungan belum disetel.
 
 **Solusi:**
-
 - Ulangi Langkah 3. Pastikan Anda menggunakan set GEMINI_API_KEY=... di terminal yang aktif sebelum python app.py.
 
 ### 3
 
 **Masalah:**
-
 - audioread.NoBackendError
-
+ 
 **Kemungkinan Penyebab:**
-
 - FFMPEG tidak ditemukan di PATH sistem.
 
 **Solusi:**
-
 - Verifikasi bahwa Anda telah menambahkan jalur folder bin FFMPEG ke System PATH Windows Anda.
 
 ### 4
 
 **Masalah:**
-
 - "Import ""optimum..."" could not be resolved"
 
 **Kemungkinan Penyebab:**
-
 - Konflik namespace atau caching VS Code.
 
 **Solusi:**
-
 - Ulangi Langkah 1 dengan membuat venv baru.

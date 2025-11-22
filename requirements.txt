@@ -9,6 +9,7 @@ google-genai
 pydantic
 onnxruntime
 optimum
+ultralytics
 
 # note: Buat environment baru terlebih dahulu agar tidak terjadi conflict dependencies, 
 # lalu install secara manual di terminal menggunakan pip install jika saat install requirements.txt gagal/masih tidak terbaca.
